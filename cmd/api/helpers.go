@@ -18,9 +18,11 @@ func (app *application) readIDParam(r *http.Request) (int64, error) {
 	return id, nil
 }
 
+type envelope map[string]interface{}
+
 // writeJSON untuk keperluan mengirimkan response JSON seperti marshaling body JSON,
 // memasukkan Content-Type, dan hal hal yang terkait dengan header
-func (app *application) writeJSON(w http.ResponseWriter, status int, data interface{}, headers http.Header) error {
+func (app *application) writeJSON(w http.ResponseWriter, status int, data envelope, headers http.Header) error {
 	js, err := json.Marshal(data)
 	if err != nil {
 		return err

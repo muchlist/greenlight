@@ -9,6 +9,7 @@ import (
 	"github.com/muchlist/greenlight/internal/jsonlog"
 	"github.com/muchlist/greenlight/internal/mailer"
 	"os"
+	"sync"
 	"time"
 )
 
@@ -42,6 +43,8 @@ type application struct {
 	logger *jsonlog.Logger
 	models data.Models
 	mailer mailer.Mailer
+	// waitgroup for gracefully shutdown background process
+	wg sync.WaitGroup
 }
 
 func main() {

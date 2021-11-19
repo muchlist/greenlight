@@ -32,5 +32,7 @@ go test -race -vet=off ./...
 
 go install honnef.co/go/tools/cmd/staticcheck@latest
 which staticcheck
+
+go mod vendor
    
 ```

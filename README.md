@@ -20,13 +20,17 @@ CREATE ROLE greenlight WITH LOGIN PASSWORD 'pa55word';
 CREATE EXTENSION IF NOT EXISTS citext;  
 DSN : postgres://greenlight:pa55word@localhost/greenlight
 
-## Migration
+## Maintenance Command
 
-migrate create -seq -ext=.sql -dir=./migrations create_movies_table  
-migrate create -seq -ext=sql -dir=migrations create_movies_table << windows
 
-migrate -path=./migrations -database=$GREENLIGHT_DB_DSN up  
-migrate -path=./migrations -database=$GREENLIGHT_DB_DSN down 1
+```    
+go mod tidy
+go mod verify  
+go fmt ./...  
+go vet ./...
+go test -race -vet=off ./...
 
-migrate -path=./migrations -database=$EXAMPLE_DSN version  
-migrate -path=./migrations -database=$EXAMPLE_DSN force 1
+go install honnef.co/go/tools/cmd/staticcheck@latest
+which staticcheck
+   
+```
